@@ -5,26 +5,27 @@ import Liquidacion.detalleLiquidacionn;
 import Clases.Liquidacion;
 import Clases.Salario;
 import Pdf.boletaPago;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-public class nuevaLiquidacion extends javax.swing.JDialog {
+public class liquidarVarios extends javax.swing.JDialog {
 
  Liquidacion liq = new Liquidacion();
  Salario sal = new Salario();
- public static DefaultTableModel m;
+ public static DefaultTableModel m, te;
 
 
-public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
+public liquidarVarios(java.awt.Frame parent, boolean modal) {
  super(parent, modal);
  initComponents();
- liq.emp.cargarCategoria(3);
- comboEmpleados.setEnabled(false);
+ liq.emp.cargarCategoria(4);
  lblDesde.setText(liq.fh.fechaDesde());
  lblHasta.setText(liq.fh.fecha());
  lblPeriodo.setText(liq.fh.periodo());
- btnAceptar.setEnabled(false);
+ btnAceptarSeleccionados.setEnabled(false);
+ 
 }
 
     @SuppressWarnings("unchecked")
@@ -37,14 +38,11 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         comboCategoria = new javax.swing.JComboBox();
-        jLabel11 = new javax.swing.JLabel();
-        comboEmpleados = new javax.swing.JComboBox();
         lblFechaHasta1 = new javax.swing.JLabel();
         lblFechaHasta5 = new javax.swing.JLabel();
         lblHasta = new javax.swing.JLabel();
         lblFechaHasta7 = new javax.swing.JLabel();
         lblDesde = new javax.swing.JLabel();
-        btnAceptar = new javax.swing.JButton();
         lblPeriodo = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtSubTotal = new javax.swing.JTextField();
@@ -62,14 +60,12 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaConceptos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        btnAgregar = new javax.swing.JButton();
+        btnLiquidar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        txtCuil = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaEmpleados = new javax.swing.JTable();
+        btnAceptarSeleccionados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva Liquidacion");
@@ -83,69 +79,47 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 102));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(-16777216,true))));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
 
         jLabel9.setBackground(new java.awt.Color(-16711681,true));
-        jLabel9.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        jLabel9.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(-1,true));
         jLabel9.setText("Categoria:");
 
-        comboCategoria.setFont(new java.awt.Font("Tahoma", 1, 18));
+        comboCategoria.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         comboCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboCategoriaItemStateChanged(evt);
             }
         });
 
-        jLabel11.setBackground(new java.awt.Color(-16711681,true));
-        jLabel11.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
-        jLabel11.setForeground(new java.awt.Color(-1,true));
-        jLabel11.setText("DNI DEL EMPLEADO:");
-
-        comboEmpleados.setFont(new java.awt.Font("Tahoma", 1, 18));
-        comboEmpleados.setName("comboEmpleados"); // NOI18N
-        comboEmpleados.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboEmpleadosItemStateChanged(evt);
-            }
-        });
-
         lblFechaHasta1.setBackground(new java.awt.Color(-16711681,true));
-        lblFechaHasta1.setFont(new java.awt.Font("Segoe UI Light", 1, 18));
+        lblFechaHasta1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         lblFechaHasta1.setForeground(new java.awt.Color(-1,true));
         lblFechaHasta1.setText("Periodo:");
 
         lblFechaHasta5.setBackground(new java.awt.Color(-16711681,true));
-        lblFechaHasta5.setFont(new java.awt.Font("Segoe UI Light", 1, 18));
+        lblFechaHasta5.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         lblFechaHasta5.setForeground(new java.awt.Color(-1,true));
         lblFechaHasta5.setText("HASTA:");
 
         lblHasta.setBackground(new java.awt.Color(-16711681,true));
-        lblHasta.setFont(new java.awt.Font("Segoe UI Light", 1, 18));
+        lblHasta.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         lblHasta.setForeground(new java.awt.Color(-1,true));
         lblHasta.setText("xx/xx/xxxx");
 
         lblFechaHasta7.setBackground(new java.awt.Color(-16711681,true));
-        lblFechaHasta7.setFont(new java.awt.Font("Segoe UI Light", 1, 18));
+        lblFechaHasta7.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         lblFechaHasta7.setForeground(new java.awt.Color(-1,true));
         lblFechaHasta7.setText("DESDE:");
 
         lblDesde.setBackground(new java.awt.Color(-16711681,true));
-        lblDesde.setFont(new java.awt.Font("Segoe UI Light", 1, 18));
+        lblDesde.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         lblDesde.setForeground(new java.awt.Color(-1,true));
         lblDesde.setText("xx/xx/xxxx");
 
-        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/aceptar.png"))); // NOI18N
-        btnAceptar.setText("ACEPTAR");
-        btnAceptar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
-
         lblPeriodo.setBackground(new java.awt.Color(-16711681,true));
-        lblPeriodo.setFont(new java.awt.Font("Segoe UI Light", 1, 18));
+        lblPeriodo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         lblPeriodo.setForeground(new java.awt.Color(-1,true));
         lblPeriodo.setText("xx/xx/xxxx");
 
@@ -171,14 +145,8 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAceptar)))
-                .addContainerGap(126, Short.MAX_VALUE))
+                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,37 +159,34 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
                     .addComponent(lblFechaHasta5)
                     .addComponent(lblHasta)
                     .addComponent(lblPeriodo))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(comboEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jLabel13.setBackground(new java.awt.Color(-16711681,true));
-        jLabel13.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        jLabel13.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel13.setText("Descuentos:");
 
         txtSubTotal.setEditable(false);
-        txtSubTotal.setFont(new java.awt.Font("Tahoma", 0, 18));
+        txtSubTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel15.setBackground(new java.awt.Color(-16711681,true));
-        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel15.setText("Salario Neto:");
 
         txtSalarioNeto.setEditable(false);
-        txtSalarioNeto.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtSalarioNeto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         panelConcepto.setBackground(new java.awt.Color(0, 102, 102));
-        panelConcepto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(-16777216,true)), "Conceptos"));
+        panelConcepto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Conceptos"));
         panelConcepto.setForeground(new java.awt.Color(-1,true));
 
         radAguinaldoJ.setBackground(new java.awt.Color(-16751002,true));
         btngroupAguinaldo.add(radAguinaldoJ);
-        radAguinaldoJ.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        radAguinaldoJ.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         radAguinaldoJ.setForeground(new java.awt.Color(-1,true));
         radAguinaldoJ.setText("Aguinaldo Junio");
         radAguinaldoJ.setEnabled(false);
@@ -233,7 +198,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
 
         radAguinaldoD.setBackground(new java.awt.Color(-16751002,true));
         btngroupAguinaldo.add(radAguinaldoD);
-        radAguinaldoD.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        radAguinaldoD.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         radAguinaldoD.setForeground(new java.awt.Color(-1,true));
         radAguinaldoD.setText("Aguinaldo Diciembre");
         radAguinaldoD.setEnabled(false);
@@ -245,7 +210,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
 
         radVacaciones14.setBackground(new java.awt.Color(-16751002,true));
         btngroupVacaciones.add(radVacaciones14);
-        radVacaciones14.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        radVacaciones14.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         radVacaciones14.setForeground(new java.awt.Color(-1,true));
         radVacaciones14.setText("Vacaciones 14 dias");
         radVacaciones14.setEnabled(false);
@@ -257,7 +222,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
 
         radVacaciones.setBackground(new java.awt.Color(-16751002,true));
         btngroupVacaciones.add(radVacaciones);
-        radVacaciones.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        radVacaciones.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         radVacaciones.setForeground(new java.awt.Color(-1,true));
         radVacaciones.setText("Vacaciones  7 dias");
         radVacaciones.setEnabled(false);
@@ -268,10 +233,20 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         });
 
         radPresentismo.setBackground(new java.awt.Color(-16751002,true));
-        radPresentismo.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        radPresentismo.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         radPresentismo.setForeground(new java.awt.Color(-1,true));
         radPresentismo.setText("Presentismo");
         radPresentismo.setEnabled(false);
+        radPresentismo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radPresentismoItemStateChanged(evt);
+            }
+        });
+        radPresentismo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                radPresentismoStateChanged(evt);
+            }
+        });
         radPresentismo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 radPresentismoMouseClicked(evt);
@@ -280,7 +255,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
 
         radVacaciones21.setBackground(new java.awt.Color(-16751002,true));
         btngroupVacaciones.add(radVacaciones21);
-        radVacaciones21.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        radVacaciones21.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         radVacaciones21.setForeground(new java.awt.Color(-1,true));
         radVacaciones21.setText("Vacaciones 21 dias");
         radVacaciones21.setEnabled(false);
@@ -323,11 +298,11 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         );
 
         jLabel14.setBackground(new java.awt.Color(-16711681,true));
-        jLabel14.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
+        jLabel14.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel14.setText("Monto:");
 
         txtDescuento.setEditable(false);
-        txtDescuento.setFont(new java.awt.Font("Tahoma", 0, 18));
+        txtDescuento.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         tablaConceptos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -344,19 +319,19 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
 
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
-        btnAgregar.setEnabled(false);
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnLiquidar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
+        btnLiquidar.setText("LIQUIDAR");
+        btnLiquidar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLiquidar.setEnabled(false);
+        btnLiquidar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                btnLiquidarActionPerformed(evt);
             }
         });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
-        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -365,7 +340,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sali.png"))); // NOI18N
         btnSalir.setText("ATRAS");
-        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -378,7 +353,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAgregar)
+                .addComponent(btnLiquidar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 631, Short.MAX_VALUE)
@@ -390,55 +365,33 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
+                    .addComponent(btnLiquidar)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir)))
         );
 
-        jPanel3.setBackground(new java.awt.Color(0, 102, 102));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(-16777216,true)), "Datos del Empleado"));
+        tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaEmpleados.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jScrollPane2.setViewportView(tablaEmpleados);
 
-        jLabel10.setBackground(new java.awt.Color(-16711681,true));
-        jLabel10.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
-        jLabel10.setForeground(new java.awt.Color(-1,true));
-        jLabel10.setText("Apellido y Nombre:");
-
-        txtNombre.setEditable(false);
-        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 18));
-
-        txtCuil.setEditable(false);
-        txtCuil.setFont(new java.awt.Font("Tahoma", 0, 18));
-
-        jLabel12.setBackground(new java.awt.Color(-16711681,true));
-        jLabel12.setFont(new java.awt.Font("Segoe UI Light", 0, 18));
-        jLabel12.setForeground(new java.awt.Color(-1,true));
-        jLabel12.setText("Cuil:");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        btnAceptarSeleccionados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/aceptar.png"))); // NOI18N
+        btnAceptarSeleccionados.setText("AGREGAR CONCEPTOS");
+        btnAceptarSeleccionados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAceptarSeleccionados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarSeleccionadosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -449,10 +402,14 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAceptarSeleccionados)
+                                .addGap(0, 528, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -465,7 +422,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSalarioNeto, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 175, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -473,13 +430,16 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAceptarSeleccionados, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -500,25 +460,37 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-924)/2, (screenSize.height-676)/2, 924, 676);
+        setSize(new java.awt.Dimension(924, 606));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-     String[] titulos ={"Descripcion","Monto","Descuento"};
-     m = new DefaultTableModel(null,titulos);
+     String[] titulosConcepto ={"Descripcion","Monto","Descuento"};
+     String[] titulosEmpleados ={"Nombre","Apellido","DNI","CUIL"};
+     m = new DefaultTableModel(null,titulosConcepto);
+     te = new DefaultTableModel(null,titulosEmpleados);
      tablaConceptos.setModel(m);
+     tablaEmpleados.setModel(te);
     }//GEN-LAST:event_formWindowOpened
 
     private void comboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCategoriaItemStateChanged
      sal.emp.setCategoria(comboCategoria.getSelectedIndex()+1);
-     sal.emp.cargarEmpleado();
-     btnAceptar.setEnabled(true);
+     sal.emp.cargarTablaEmpleados();
+     btnAceptarSeleccionados.setEnabled(true);
+     m.setRowCount(0);
+     txtSalarioNeto.setText("");
+     txtSubTotal.setText("");
+     txtDescuento.setText("");
+     radAguinaldoJ.setSelected(false);
+     radAguinaldoD.setSelected(false);
+     radVacaciones.setSelected(false);
+     radVacaciones.setSelected(false);
+     radVacaciones14.setSelected(false);
+     radVacaciones21.setSelected(false);
+     radPresentismo.setSelected(false);
     }//GEN-LAST:event_comboCategoriaItemStateChanged
 
     private void radAguinaldoJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radAguinaldoJMouseClicked
@@ -565,16 +537,21 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         seleccionVacaciones();
     }//GEN-LAST:event_radVacacionesMouseClicked
 
-    private void comboEmpleadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEmpleadosItemStateChanged
-     nuevo();
-     btnAceptar.setEnabled(true);
-    }//GEN-LAST:event_comboEmpleadosItemStateChanged
-
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-     liq.emp.setDni(Integer.parseInt(comboEmpleados.getSelectedItem().toString()));
-     liq.emp.cargarNombre();
-     liq.emp.cargarEmpleadoLiquidacion(lblPeriodo.getText(), 2);
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    private void btnAceptarSeleccionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarSeleccionadosActionPerformed
+     DefaultTableModel model = (DefaultTableModel) tablaEmpleados.getModel();
+        if (tablaEmpleados.getRowCount() > 0) {
+            if (tablaEmpleados.getSelectedRowCount() > 0) {
+                int selectedRow[] = tablaEmpleados.getSelectedRows();
+                for (int i : selectedRow) {
+                    liq.emp.setDni(Integer.parseInt(tablaEmpleados.getValueAt(i, 2).toString()));
+                    String nombre = tablaEmpleados.getValueAt(i, 0).toString();
+                    String apellido = tablaEmpleados.getValueAt(i, 1).toString();
+                }
+                btnAceptarSeleccionados.setEnabled(false);
+            }
+        }
+        liq.emp.cargarEmpleadoLiquidacion(lblPeriodo.getText(), 1);
+    }//GEN-LAST:event_btnAceptarSeleccionadosActionPerformed
 
     private void radPresentismoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radPresentismoMouseClicked
     if(radPresentismo.isSelected()==true){
@@ -611,36 +588,44 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
         seleccionVacaciones();
     }//GEN-LAST:event_radVacaciones21MouseClicked
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-     liq.emp.setDni(Integer.parseInt(comboEmpleados.getSelectedItem().toString()));
-     liq.setFechaDesde(liq.fh.fechaDesdeBd().toLowerCase());
-     liq.setFechaHasta(liq.fh.fechaHastaBd().toLowerCase());
-     liq.setSalarioNeto(Float.parseFloat(txtSalarioNeto.getText().toLowerCase()));
-     liq.setPeriodo(lblPeriodo.getText().toLowerCase());
-     liq.setEstado(1);
-     liq.nuevaLiquidacion();
-     for(int i =0; i < m.getRowCount(); i++){
-      liq.dl.con.setDescripcion(String.valueOf(m.getValueAt(i, 0).toString()));
-      liq.dl.setMonto(Float.parseFloat(m.getValueAt(i,1).toString()));
-      liq.dl.setDescuentos(Float.parseFloat(m.getValueAt(i,2).toString()));
-      liq.dl.setSubTotal(Float.parseFloat(m.getValueAt(i,1).toString())- Float.parseFloat(m.getValueAt(i,2).toString()));
-      liq.dl.nuevoDetalle(Integer.parseInt(comboEmpleados.getSelectedItem().toString().toLowerCase()));
-      }
-     try {
-     int idLiquidacion = liq.ultimaLiquidacion(Integer.parseInt(comboEmpleados.getSelectedItem().toString()));
-     boletaPago bp = new boletaPago(Integer.parseInt(comboEmpleados.getSelectedItem().toString()),idLiquidacion,Float.parseFloat(txtSubTotal.getText()),Float.parseFloat(txtDescuento.getText()),Float.parseFloat(txtSalarioNeto.getText()));
-     nuevo();
-     }
-    catch (Exception ex) {
-     Logger.getLogger(detalleLiquidacionn.class.getName()).log(Level.SEVERE, null, ex);
-    }
-     
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    private void btnLiquidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiquidarActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tablaEmpleados.getModel();
+        if (tablaEmpleados.getRowCount() > 0) {
+            if (tablaEmpleados.getSelectedRowCount() > 0) {
+                int selectedRow[] = tablaEmpleados.getSelectedRows();
+                for (int i : selectedRow) {
+                    liq.emp.setDni(Integer.parseInt(tablaEmpleados.getValueAt(i, 2).toString()));
+                    liq.setFechaDesde(liq.fh.fechaDesdeBd().toLowerCase());
+                    liq.setFechaHasta(liq.fh.fechaHastaBd().toLowerCase());
+                    liq.setSalarioNeto(Float.parseFloat(txtSalarioNeto.getText().toLowerCase()));
+                    liq.setPeriodo(lblPeriodo.getText().toLowerCase());
+                    liq.setEstado(1);
+                    liq.nuevaLiquidacion();
+                    for(int j =0; j < tablaConceptos.getRowCount(); j++){
+                        liq.dl.con.setDescripcion(String.valueOf(m.getValueAt(j, 0).toString()));
+                        liq.dl.setMonto(Float.parseFloat(m.getValueAt(j,1).toString()));
+                        liq.dl.setDescuentos(Float.parseFloat(m.getValueAt(j,2).toString()));
+                        liq.dl.setSubTotal(Float.parseFloat(m.getValueAt(j,1).toString())- Float.parseFloat(m.getValueAt(j,2).toString()));
+                        liq.dl.nuevoDetalle(Integer.parseInt(tablaEmpleados.getValueAt(i, 2).toString()));
+                    }
+                    try {
+                        int idLiquidacion = liq.ultimaLiquidacion(Integer.parseInt(tablaEmpleados.getValueAt(i, 2).toString()));
+                        boletaPago bp = new boletaPago(Integer.parseInt(tablaEmpleados.getValueAt(i, 2).toString()),idLiquidacion,Float.parseFloat(txtSubTotal.getText()),Float.parseFloat(txtDescuento.getText()),Float.parseFloat(txtSalarioNeto.getText()));
+                    }
+                    catch (Exception ex) {
+                        Logger.getLogger(detalleLiquidacionn.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+                nuevo();
+            }
+        }    
+    }//GEN-LAST:event_btnLiquidarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
      nuevo();
-     btnAceptar.setEnabled(false);
-     btnAgregar.setEnabled(true);
+     btnAceptarSeleccionados.setEnabled(false);
+     btnLiquidar.setEnabled(true);
      comboCategoria.setSelectedIndex(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -648,19 +633,28 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
      dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void radPresentismoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radPresentismoItemStateChanged
+
+    }//GEN-LAST:event_radPresentismoItemStateChanged
+
+    private void radPresentismoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radPresentismoStateChanged
+
+    }//GEN-LAST:event_radPresentismoStateChanged
+
     public void nuevo() {
-     txtNombre.setText("");
-     txtCuil.setText("");
+     //limpiar pantalla
+     txtSalarioNeto.setText("");
      txtSubTotal.setText("");
      txtDescuento.setText("");
-     txtSalarioNeto.setText("");
+     te.setRowCount(0);
+     m.setRowCount(0);
      radAguinaldoJ.setSelected(false);
      radAguinaldoD.setSelected(false);
-     radVacaciones14.setSelected(false);
      radVacaciones.setSelected(false);
+     radVacaciones.setSelected(false);
+     radVacaciones14.setSelected(false);
      radVacaciones21.setSelected(false);
      radPresentismo.setSelected(false);
-     m.setRowCount(0);
      radAguinaldoJ.setEnabled(false);
      radAguinaldoD.setEnabled(false);
      radVacaciones.setEnabled(false);
@@ -838,7 +832,7 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                nuevaLiquidacion dialog = new nuevaLiquidacion(new javax.swing.JFrame(), true);
+                liquidarVarios dialog = new liquidarVarios(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -851,26 +845,22 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton btnAceptar;
-    public static javax.swing.JButton btnAgregar;
+    public static javax.swing.JButton btnAceptarSeleccionados;
     private javax.swing.JButton btnCancelar;
+    public static javax.swing.JButton btnLiquidar;
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup btngroupAguinaldo;
     private javax.swing.ButtonGroup btngroupVacaciones;
     public static javax.swing.JComboBox comboCategoria;
-    public static javax.swing.JComboBox comboEmpleados;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDesde;
     private javax.swing.JLabel lblFechaHasta1;
     private javax.swing.JLabel lblFechaHasta5;
@@ -885,9 +875,8 @@ public nuevaLiquidacion(java.awt.Frame parent, boolean modal) {
     public static javax.swing.JRadioButton radVacaciones14;
     public static javax.swing.JRadioButton radVacaciones21;
     public static javax.swing.JTable tablaConceptos;
-    public static javax.swing.JTextField txtCuil;
+    public static javax.swing.JTable tablaEmpleados;
     public static javax.swing.JTextField txtDescuento;
-    public static javax.swing.JTextField txtNombre;
     public static javax.swing.JTextField txtSalarioNeto;
     public static javax.swing.JTextField txtSubTotal;
     // End of variables declaration//GEN-END:variables

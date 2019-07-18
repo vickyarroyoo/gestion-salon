@@ -2,6 +2,7 @@
 package finalgestion;
 
 import Liquidacion.nuevaLiquidacion;
+import Liquidacion.liquidarVarios;
 import Ventas.reporteVentas;
 import Ventas.nuevaVenta;
 import Proveedores.listadoDeProveedores;
@@ -83,9 +84,9 @@ public class ventanaPrincipal extends VentanaConFondo  implements Runnable{
         menuCompra = new javax.swing.JMenuItem();
         menuListadoCompras = new javax.swing.JMenuItem();
         menuSalarios = new javax.swing.JMenu();
-        menuLiquidarSueldo = new javax.swing.JMenuItem();
         menuListadoConceptos = new javax.swing.JMenuItem();
         listaDeLiquidaciones = new javax.swing.JMenuItem();
+        menuLiquidarVarios = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         menuManual = new javax.swing.JMenuItem();
         menuAcerca = new javax.swing.JMenuItem();
@@ -347,17 +348,6 @@ public class ventanaPrincipal extends VentanaConFondo  implements Runnable{
         menuSalarios.setText("SALARIOS");
         menuSalarios.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
-        menuLiquidarSueldo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        menuLiquidarSueldo.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
-        menuLiquidarSueldo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1378402589_Salary.png"))); // NOI18N
-        menuLiquidarSueldo.setText("LIQUIDAR SUELDO");
-        menuLiquidarSueldo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLiquidarSueldoActionPerformed(evt);
-            }
-        });
-        menuSalarios.add(menuLiquidarSueldo);
-
         menuListadoConceptos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
         menuListadoConceptos.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
         menuListadoConceptos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizarConceptos.png"))); // NOI18N
@@ -379,6 +369,17 @@ public class ventanaPrincipal extends VentanaConFondo  implements Runnable{
             }
         });
         menuSalarios.add(listaDeLiquidaciones);
+
+        menuLiquidarVarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        menuLiquidarVarios.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
+        menuLiquidarVarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1378402589_Salary.png"))); // NOI18N
+        menuLiquidarVarios.setText("LIQUIDAR SUELDOS");
+        menuLiquidarVarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLiquidarVariosActionPerformed(evt);
+            }
+        });
+        menuSalarios.add(menuLiquidarVarios);
 
         jMenuBar1.add(menuSalarios);
 
@@ -504,11 +505,6 @@ public class ventanaPrincipal extends VentanaConFondo  implements Runnable{
      rc.setVisible(true);
     }//GEN-LAST:event_menuListadoComprasActionPerformed
 
-    private void menuLiquidarSueldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLiquidarSueldoActionPerformed
-     nuevaLiquidacion nl = new nuevaLiquidacion(null,true);
-     nl.setVisible(true);
-    }//GEN-LAST:event_menuLiquidarSueldoActionPerformed
-
     private void listaDeLiquidacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaDeLiquidacionesActionPerformed
      reporteLiquidacion ll = new reporteLiquidacion(null,true);
      ll.setVisible(true);
@@ -542,6 +538,11 @@ public class ventanaPrincipal extends VentanaConFondo  implements Runnable{
 listadoDeServicios ls = new listadoDeServicios();
 ls.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_listaDeServiciosActionPerformed
+
+    private void menuLiquidarVariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLiquidarVariosActionPerformed
+         liquidarVarios nl = new liquidarVarios(null,true);
+         nl.setVisible(true);
+    }//GEN-LAST:event_menuLiquidarVariosActionPerformed
 
  private void cerrar(){
   System.exit(0);
@@ -607,7 +608,7 @@ segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):
     public static javax.swing.JMenu menuEmpleados;
     public static javax.swing.JMenuItem menuIniciarSesion;
     public static javax.swing.JMenu menuInsumo;
-    public static javax.swing.JMenuItem menuLiquidarSueldo;
+    public static javax.swing.JMenuItem menuLiquidarVarios;
     private javax.swing.JMenuItem menuListadoCompras;
     private javax.swing.JMenuItem menuListadoConceptos;
     public static javax.swing.JMenuItem menuListadoVentas;

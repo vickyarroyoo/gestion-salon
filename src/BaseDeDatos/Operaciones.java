@@ -13,6 +13,7 @@ import Compras.mostrarLineaCompra;
 import Ventas.mostrarLineaVenta;
 import Compras.nuevaCompra;
 import Liquidacion.nuevaLiquidacion;
+import Liquidacion.liquidarVarios;
 import Ventas.nuevaVenta;
 import Clientes.nuevoCliente;
 import Empleados.nuevoEmpleados;
@@ -27,8 +28,10 @@ import finalgestion.ventanaPrincipal;
 import Liquidacion.detalleLiquidacionn;
 import Servicios.nuevoServicio;
 import java.sql.*;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Operaciones {
@@ -324,6 +327,9 @@ public class Operaciones {
             }
             if (numero == 3) {
                 nuevaLiquidacion.comboCategoria.setModel(modeloCombo);
+            }
+            if (numero == 4) {
+                liquidarVarios.comboCategoria.setModel(modeloCombo);
             }
 
             else {
@@ -1335,8 +1341,30 @@ public class Operaciones {
             System.out.print(ex);
         }
     }
+    
+    public void cargarTablaEmpleados(int categoria) {
+        try {
+            DefaultTableModel model = (DefaultTableModel) liquidarVarios.tablaEmpleados.getModel();
+            model.setRowCount(0);
+            con.conectarBaseDeDatos();
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT dniEmpleado, nombre, apellido, cuil FROM empleados WHERE Estado =1 AND idCategoria = '" + categoria + "'");
+            ResultSet res = pstm.executeQuery();
+            while (res.next()) {
+                Object[] row = {res.getString("nombre"), res.getString("apellido"), res.getInt("dniEmpleado"), res.getString("cuil")};
+                model.addRow(row);
+            }
+            res.close();
+            con.desconectarBaseDeDatos();
+        } catch (SQLException ex) {
+            System.out.print(ex);
+        }
+    }
+    
+    public DefaultTableModel buildTableModel(ResultSet rs){
+    
+    }
 
-    public void cargarEmpleadosLiquidacion(String periodo, int dni) {
+    public void cargarEmpleadoLiquidacion(String periodo, int dni) {
         try {
 
             Liquidacion liq = new Liquidacion();
@@ -1356,6 +1384,34 @@ public class Operaciones {
                     nuevaLiquidacion.activar();
                     nuevaLiquidacion.btnAceptar.setEnabled(false);
                     nuevaLiquidacion.btnAgregar.setEnabled(true);
+                }
+            }
+            res.close();
+            con.desconectarBaseDeDatos();
+        } catch (SQLException ex) {
+            System.out.print(ex);
+        }
+    }
+    
+    public void cargarEmpleadosLiquidacion(String periodo, int dni) {
+        try {
+
+            Liquidacion liq = new Liquidacion();
+            con.conectarBaseDeDatos();
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT emp.*,liq.*,cat.SalarioBasico FROM empleados emp, liquidacion liq, categoria cat WHERE emp.dniEmpleado ='" + dni + "' AND emp.idCategoria = cat.idCategoria");
+            ResultSet res = pstm.executeQuery();
+            if (res.next() == true) {
+                System.out.println("dentro del if.");
+                if (res.getString("liq.PeriodoDeLiquidacion").equals(periodo) && res.getInt("liq.dniEmpleado") == dni) {
+                    JOptionPane.showMessageDialog(null, "El Empleado ya posse una Liquidacion en este Periodo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    System.out.println("Dentr del else del if..");
+
+                    liq.cargarSalarioVarios(res.getFloat("cat.SalarioBasico"));
+                    liquidarVarios.calcularSubTotal();
+                    liquidarVarios.calcularDescuento();
+                    liquidarVarios.activar();
+                    liquidarVarios.btnLiquidar.setEnabled(true);
                 }
             }
             res.close();
@@ -1523,14 +1579,13 @@ public float obtenerAguinaldoDiciembre() {
             if (res.next() == true) {
                 porDefecto=res.getBoolean("porDefecto");
                 presentismo = res.getFloat("MontoFijo");
+                System.out.println(porDefecto);
+                System.out.println(presentismo);
             }
             con.desconectarBaseDeDatos();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
             System.out.print(ex);
-        }
-       if(porDefecto==false){
-        presentismo=0;
         }
         return presentismo;
     }

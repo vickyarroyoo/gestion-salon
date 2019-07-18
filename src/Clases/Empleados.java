@@ -164,9 +164,19 @@ public void cargarEmpleado() {
  op.cargarEmpleados(categoria);
 }
 
-public void cargarEmpleadoLiquidacion(String periodo) {
+public void cargarTablaEmpleados() {
+ op.cargarTablaEmpleados(categoria);
+}
+
+
+public void cargarEmpleadoLiquidacion(String periodo, int cat) {
     System.out.println("Cargando empleados liquidacion.");
- op.cargarEmpleadosLiquidacion(periodo,dni);
+    if(cat == 1) {
+        op.cargarEmpleadosLiquidacion(periodo,dni);
+    }
+    if (cat == 2) {
+        op.cargarEmpleadoLiquidacion(periodo,dni);
+    }
 }
 
 public void cargarNombre() {

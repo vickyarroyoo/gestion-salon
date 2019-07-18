@@ -4,6 +4,7 @@ package Clases;
 import Conceptos.Conceptos;
 import BaseDeDatos.Operaciones;
 import Liquidacion.nuevaLiquidacion;
+import Liquidacion.liquidarVarios;
 
 public class Liquidacion {
  public Empleados emp = new Empleados();
@@ -138,13 +139,94 @@ public void cargarSalario(float salario) {
  nuevaLiquidacion.m.addRow(datos);
  }
  
- float presentismo = op.obtenerPresentismo();
+ /*float presentismo = op.obtenerPresentismo();
  if(presentismo>0){
  datos[0] = "Presentismo";
  datos[1]= String.valueOf(presentismo);
  datos[2] = "0";
  nuevaLiquidacion.m.addRow(datos);
+ }*/
+ 
+}
+
+public void cargarSalarioVarios(float salario) {
+ String[] datos = new String[3];
+ datos[0] = "Salario Basico";
+ datos[1]= String.valueOf(salario);
+ datos[2] = "0";
+ liquidarVarios.m.addRow(datos);
+ 
+ float jub = op.obtenerJubilacion();
+ if(jub>0){
+ float jubilacion = salario * jub;
+ datos[0] = "Jubilacion";
+ datos[1] = "0";
+ datos[2]= String.valueOf(jubilacion);
+ liquidarVarios.m.addRow(datos);
  }
+ 
+ 
+ float obra = op.obtenerObraSocial();
+ if(obra>0){
+ float obraSocial = salario * obra;
+ datos[0] = "Obra Social";
+ datos[1] = "0";
+ datos[2]= String.valueOf(obraSocial);
+ liquidarVarios.m.addRow(datos);
+ }
+ 
+
+ float aporte = op.obtenerAporte();
+ if(aporte>0){
+ datos[0] = "Aporte Obra Social";
+ datos[1] = "0";
+ datos[2]= String.valueOf(aporte);
+ liquidarVarios.m.addRow(datos);
+ }
+ 
+ float sin = op.obtenerSindicato();
+ if(sin>0){
+ float sindicato = sin*salario;
+ datos[0] = "Aporte Sindicato";
+ datos[1] = "0";
+ datos[2]= String.valueOf(sindicato);
+ liquidarVarios.m.addRow(datos);
+ }
+ 
+ float le = op.obtenerLey();
+ if(le>0){
+ float ley = le*salario;
+ datos[0] = "Ley 23660";
+ datos[1] = "0";
+ datos[2]= String.valueOf(ley);
+ liquidarVarios.m.addRow(datos);
+ }
+ 
+ float aj = op.obtenerAguinaldoJunio();
+ if(aj>0){
+ float aju = aj*salario;
+ datos[0] = "Aguinaldo Junio";
+ datos[1]= String.valueOf(aju);
+ datos[2] = "0";
+ liquidarVarios.m.addRow(datos);
+ }
+ 
+  float ad = op.obtenerAguinaldoDiciembre();
+ if(aj>0){
+ float adi = aj*salario;
+ datos[0] = "Aguinaldo Diciembre";
+ datos[1]= String.valueOf(adi);
+ datos[2] = "0";
+ liquidarVarios.m.addRow(datos);
+ }
+ 
+ /*float presentismo = op.obtenerPresentismo();
+ if(presentismo>0){
+ datos[0] = "Presentismo";
+ datos[1]= String.valueOf(presentismo);
+ datos[2] = "0";
+ liquidarVarios.m.addRow(datos);
+ }*/
  
 }
       

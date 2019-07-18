@@ -2,6 +2,7 @@
 package Clases;
 
 import BaseDeDatos.Operaciones;
+import Liquidacion.liquidarVarios;
 import Liquidacion.nuevaLiquidacion;
 
 public class Salario {
@@ -16,7 +17,8 @@ public void CalcularAguinaldo(float salario) {
  datos[0] = "Salario Complementario Junio";
  datos[1]= String.valueOf(aguinaldo);
  datos[2]= "0";
- nuevaLiquidacion.m.addRow(datos);
+ //nuevaLiquidacion.m.addRow(datos);
+ liquidarVarios.m.addRow(datos);
 }
 
 public void CalcularAguinaldoDiciembre(float salario) {
@@ -25,7 +27,8 @@ public void CalcularAguinaldoDiciembre(float salario) {
  datos[0] = "Salario Complementario Diciembre";
  datos[1]= String.valueOf(aguinaldo);
  datos[2]= "0";
- nuevaLiquidacion.m.addRow(datos);
+ //nuevaLiquidacion.m.addRow(datos);
+ liquidarVarios.m.addRow(datos);
 }
 
 public void calcularVacaciones(float salario) {
@@ -34,7 +37,8 @@ public void calcularVacaciones(float salario) {
  datos[0] = "Vacaciones 7 Dias";
  datos[1]= String.valueOf(vacaciones);
  datos[2]= "0";
- nuevaLiquidacion.m.addRow(datos);
+ //nuevaLiquidacion.m.addRow(datos);
+ liquidarVarios.m.addRow(datos);
 }
 
 public void calcularVacaciones14(float salario) {
@@ -43,7 +47,8 @@ public void calcularVacaciones14(float salario) {
  datos[0] = "Vacaciones 14 Dias";
  datos[1]= String.valueOf(vacaciones);
  datos[2]= "0";
- nuevaLiquidacion.m.addRow(datos);
+ //nuevaLiquidacion.m.addRow(datos);
+ liquidarVarios.m.addRow(datos);
 }
 
 public void calcularVacaciones21(float salario) {
@@ -53,7 +58,8 @@ public void calcularVacaciones21(float salario) {
  datos[0] = "Vacaciones 21 Dias";
  datos[1]= String.valueOf(vacaciones);
  datos[2]= "0";
- nuevaLiquidacion.m.addRow(datos);
+ //nuevaLiquidacion.m.addRow(datos);
+ liquidarVarios.m.addRow(datos);
 }
 
 public void calcularPresentismo() {
@@ -62,7 +68,8 @@ public void calcularPresentismo() {
  datos[0] = "Presentismo";
  datos[1]= String.valueOf(presentismo);
  datos[2]= "0";
- nuevaLiquidacion.m.addRow(datos);
+ //nuevaLiquidacion.m.addRow(datos);
+ liquidarVarios.m.addRow(datos);
 }
 
 }
