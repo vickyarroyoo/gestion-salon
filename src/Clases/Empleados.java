@@ -37,6 +37,7 @@ public String getFechaDeBaja() {
 }
 
 public void setFechaDeBaja(String fechaDeBaja) {
+ System.out.println(fechaDeBaja);
  this.fechaDeBaja = fechaDeBaja;
 }
 

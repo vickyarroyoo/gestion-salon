@@ -90,6 +90,7 @@ public class InsumosOperaciones {
     }
     
     public void busquedaDeInsumos(String nombre) {
+        System.out.println(nombre);
         listadoDeInsumos.m.setRowCount(0);
         try {
             con.conectarBaseDeDatos();
@@ -103,7 +104,7 @@ public class InsumosOperaciones {
                 for (int i = 0; i < cantidadColumnas; i++) {
                     fila[i] = res.getObject(i + 1);
                 }
-                listadoDeServicios.m.addRow(fila);
+                listadoDeInsumos.m.addRow(fila);
             } else {
                 JOptionPane.showMessageDialog(null, "Insumo no encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
                 this.listadeInsumos();
@@ -117,14 +118,14 @@ public class InsumosOperaciones {
     public void cargarInsumo() {
         con.conectarBaseDeDatos();
  try{
-  PreparedStatement pstm = con.getConnection().prepareStatement("SELECT nombre FROM insumo");
+  PreparedStatement pstm = con.getConnection().prepareStatement("SELECT idInsumo, nombre FROM insumo");
   ResultSet res = pstm.executeQuery();
   ResultSetMetaData rsmd = res.getMetaData();
   int cantidadColumnas = rsmd.getColumnCount();
   while(res.next()){
   Object[]fila = new Object[cantidadColumnas];
   for(int i=0; i < cantidadColumnas; i++){
-  fila[i]= res.getObject(i+1);
+    fila[i]= res.getObject(i+1);
   }
       buscarInsumo.tabla.addRow(fila);
   }

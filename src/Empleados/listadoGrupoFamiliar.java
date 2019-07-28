@@ -273,7 +273,6 @@ public class listadoGrupoFamiliar extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
      tabla();
-     gp.listaFamiliar();  
     }//GEN-LAST:event_formWindowOpened
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

@@ -84,6 +84,8 @@ public void setParentesco(String parentesco) {
 
 
 public void nuevoGrupoFamiliar() {
+ System.out.println(dniEmpleado);
+ System.out.println(dni);
  op.nuevoGrupoFamiliar(dniEmpleado,dni,nombre,apellido,fechaNac,parentesco,discapacidad);
 }
 

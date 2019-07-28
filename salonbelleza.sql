@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 INSERT INTO `categoria` (`idCategoria`, `puesto`, `salarioBasico`) VALUES
 (1, 'Administrador', 1000),
 (2, 'Vendedor', 3000),
-(3, 'Deposito', 3500);
+(3, 'Deposito', 3500),
+(4, 'Recursos Humanos', 4000);
 
 -- --------------------------------------------------------
 
@@ -385,6 +386,7 @@ CREATE TABLE IF NOT EXISTS `servicios` (
   `idServicio` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
   `precio` float DEFAULT NULL,
+  `estado` int(1) NOT NULL,
   PRIMARY KEY (`idServicio`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
@@ -392,17 +394,17 @@ CREATE TABLE IF NOT EXISTS `servicios` (
 -- Volcado de datos para la tabla `servicios`
 --
 
-INSERT INTO `servicios` (`idServicio`, `nombre`, `precio`) VALUES
-(5, 'tintura', 50),
-(11, 'lavado pelo', 34),
-(12, 'peinado', 200),
-(14, 'planchita', 200),
-(27, 'lavado 3', 34),
-(29, 'lavado 5', 93),
-(30, 'facial', 120),
-(31, 'depilacion', 100),
-(32, 'estilizacion de cabello', 100),
-(33, 'masajes', 200);
+INSERT INTO `servicios` (`idServicio`, `nombre`, `precio`,`estado`) VALUES
+(5, 'tintura', 50, 1),
+(11, 'lavado pelo', 34, 1),
+(12, 'peinado', 200, 1),
+(14, 'planchita', 200, 1),
+(27, 'lavado 3', 34, 1),
+(29, 'lavado 5', 93, 1),
+(30, 'facial', 120, 1),
+(31, 'depilacion', 100, 1),
+(32, 'estilizacion de cabello', 100, 1),
+(33, 'masajes', 200, 1);
 
 -- --------------------------------------------------------
 
@@ -511,8 +513,8 @@ ALTER TABLE `grupofamiliar`
 -- Filtros para la tabla `insumo_servicio`
 --
 ALTER TABLE `insumo_servicio`
-  ADD CONSTRAINT `fk_Insumo_servicio_Insumos1` FOREIGN KEY (`insumo_id`) REFERENCES `insumo` (`idInsumo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Insumo_servicio_Servicios1` FOREIGN KEY (`servicio_id`) REFERENCES `servicios` (`idServicio`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Insumo_servicio_Insumos1` FOREIGN KEY (`insumo_id`) REFERENCES `insumo` (`idInsumo`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_Insumo_servicio_Servicios1` FOREIGN KEY (`servicio_id`) REFERENCES `servicios` (`idServicio`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `liquidacion`

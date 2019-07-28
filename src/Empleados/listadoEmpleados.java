@@ -14,7 +14,7 @@ public class listadoEmpleados extends javax.swing.JFrame {
      setExtendedState(MAXIMIZED_BOTH);
      setTitle("Listado de Empelados");
      txtBuscar.requestFocus();
-     String[] titulos ={"Dni","Nombre","Apellido","Telefono","Email","Direccion","Categoria"};
+     String[] titulos ={"Dni","Cuil","Nombre","Apellido","Telefono","Email","Direccion","Categoria"};
      m = new DefaultTableModel(null,titulos);
      listadoEmpleados.setModel(m);
      m.setColumnCount(0);

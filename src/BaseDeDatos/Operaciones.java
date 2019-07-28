@@ -273,7 +273,7 @@ public class Operaciones {
         listadoEmpleados.m.setRowCount(0);
         listadoEmpleados.m.setColumnCount(0);
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT emp.dniEmpleado,emp.Nombre,emp.Apellido,emp.telefono,emp.Mail,emp.direccion, cat.Puesto FROM empleados emp, categoria cat WHERE  emp.idCategoria=cat.idCategoria AND emp.estado =1"); // puede haber error // emp.dniEmpleado = cat.dniempleado  AND emp.idCategoria = cat.idCategoria AND
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT emp.dniEmpleado,emp.cuil, emp.Nombre,emp.Apellido,emp.telefono,emp.Mail,emp.direccion, cat.Puesto FROM empleados emp, categoria cat WHERE  emp.idCategoria=cat.idCategoria AND emp.estado =1"); // puede haber error // emp.dniEmpleado = cat.dniempleado  AND emp.idCategoria = cat.idCategoria AND
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
@@ -296,7 +296,7 @@ public class Operaciones {
     public void eliminarEmpleado(int dni, String fechaDeBaja, int estado) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE empleados set Estado = ?,fechaDeBaja = ?  WHERE dniEmpleado = '" + dni + "'");
+            PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE empleados set Estado = ?,fechaBaja = ?  WHERE dniEmpleado = '" + dni + "'");
             pstm.setInt(1, estado);
             pstm.setString(2, fechaDeBaja);
             pstm.execute();
@@ -781,6 +781,12 @@ public class Operaciones {
 
     public void nuevoProveedor(String razonSocial, long telefono, String email, String fechaAlta, int estado, String direccion, String provincia) { // NO ANDA BIEN
 //int idProveedor=0;
+        String rs = razonSocial;
+        String tel = Long.toString(telefono);
+        String fec = fechaAlta;
+        String mail = email;
+        String dir = direccion;
+        String prov = provincia;
         try {
             con.conectarBaseDeDatos();
             PreparedStatement pstm1 = con.getConnection().prepareStatement("SELECT Estado FROM proveedor WHERE RazonSocial LIKE '" + razonSocial + "'");
@@ -793,7 +799,8 @@ public class Operaciones {
                     pstm2.execute();
                     pstm2.close();
                     JOptionPane.showMessageDialog(null, "El Proveedor a sido dado de Alta", "Alta", JOptionPane.INFORMATION_MESSAGE);
-                    listaDeProveedores();
+                    
+                    
                     nuevoProveedor.nuevo();
                     res1.close();
                 } else {
@@ -811,6 +818,8 @@ public class Operaciones {
                 pstm3.setString(7, provincia);
                 pstm3.execute();
                 pstm3.close();
+                Object[] fila = { rs, tel, mail, fec, dir, prov };
+                listadoDeProveedores.m.addRow(fila);
 //   PreparedStatement pstm4 = con.getConnection().prepareStatement("Select max(idProveedor) FROM proveedor WHERE RazonSocial LIKE '" + razonSocial + "'");
 //   ResultSet res2 = pstm4.executeQuery();
 //   if(res2.next()==true){
@@ -1358,10 +1367,6 @@ public class Operaciones {
         } catch (SQLException ex) {
             System.out.print(ex);
         }
-    }
-    
-    public DefaultTableModel buildTableModel(ResultSet rs){
-    
     }
 
     public void cargarEmpleadoLiquidacion(String periodo, int dni) {
@@ -2147,7 +2152,7 @@ public float obtenerAguinaldoDiciembre() {
 // listadoGrupoFamiliar.m.setRowCount(0);
         con.conectarBaseDeDatos();
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT gf.dni,gf.Apellido,gf.Nombre,gf.fechaDeNacimiento,gf.parentesco,gf.discapacidad FROM grupofamiliar gf WHERE gf.estado = 1");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT gf.dni,gf.Apellido,gf.Nombre,gf.fechaNacimiento,gf.parentesco,gf.discapacidad FROM grupofamiliar gf WHERE gf.estado = 1");
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
@@ -2170,14 +2175,15 @@ public float obtenerAguinaldoDiciembre() {
     public void nuevoGrupoFamiliar(int dniEmpleado, int dni, String nombre, String apellido, String fechaNac, String parentesco, Boolean discapacidad) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into grupofamiliar(dniEmpleado,dni,Apellido,Nombre,fechaDeNacimiento,Parentesco,discapacidad) values(?,?,?,?,?,?,?)");
+            PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into grupofamiliar(dniEmpleado,dni,Apellido,Nombre,fechaNacimiento,Parentesco,discapacidad,estado) values(?,?,?,?,?,?,?,?)");
             pstm.setInt(1, dniEmpleado);
             pstm.setInt(2, dni);
             pstm.setString(3, nombre);
             pstm.setString(4, apellido);
             pstm.setString(5, fechaNac);
             pstm.setString(6, parentesco);
-            pstm.setBoolean(7, discapacidad);
+            pstm.setBoolean(7, false);
+            pstm.setInt(8, 1);
             pstm.execute();
             pstm.close();
             con.desconectarBaseDeDatos();
@@ -2188,13 +2194,13 @@ public float obtenerAguinaldoDiciembre() {
     public void actualizarGrupoFamiliar(int dniEmpleado, int dni, String nombre, String apellido, String fechaNac, String parentesco, Boolean discapacidad) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE grupofamiliar set dni=?,Apellido = ?, Nombre = ?,fechaDeNacimiento = ?,Parentesco = ?,discapacidad = ? WHERE dniEmpleado = '" + dniEmpleado + "'");
+            PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE grupofamiliar set dni=?,Apellido = ?, Nombre = ?,fechaNacimiento = ?,Parentesco = ?,discapacidad = ? WHERE dniEmpleado = '" + dniEmpleado + "'");
             pstm.setInt(1, dni);
             pstm.setString(2, nombre);
             pstm.setString(3, apellido);
             pstm.setString(4, fechaNac);
             pstm.setString(5, parentesco);
-            pstm.setBoolean(6, discapacidad);
+            pstm.setBoolean(6, false);
             pstm.execute();
             pstm.close();
             JOptionPane.showMessageDialog(null, "Familiar Actualizado ", "ACTUALIZADO", JOptionPane.INFORMATION_MESSAGE);
@@ -2212,7 +2218,7 @@ public float obtenerAguinaldoDiciembre() {
     public void buscarGrupoFamiliar(int dniEmpleado) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT dni,Apellido,Nombre,fechaDeNacimiento,Parentesco,discapacidad FROM grupofamiliar WHERE dniEmpleado = '" + dniEmpleado + "'"); // puede haber error
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT dni,Apellido,Nombre,fechaNacimiento,Parentesco,discapacidad FROM grupofamiliar WHERE dniEmpleado = '" + dniEmpleado + "' AND estado =1"); // puede haber error
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
@@ -2242,7 +2248,7 @@ public float obtenerAguinaldoDiciembre() {
         try {
             con.conectarBaseDeDatos();
             PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE grupofamiliar set estado = ?  WHERE dni = '" + dni + "'");
-            pstm.setInt(1, estado);
+            pstm.setInt(0, estado);
             pstm.execute();
             pstm.close();
             JOptionPane.showMessageDialog(null, "Familiar Eliminado", "Gracias", JOptionPane.INFORMATION_MESSAGE);

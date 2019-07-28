@@ -3,11 +3,13 @@ package BaseDeDatos;
 import Servicios.buscarServicio;
 import Servicios.nuevoServicio;
 import Servicios.listadoDeServicios;
+import static Servicios.nuevoServicio.txtInsumo;
 import Ventas.nuevaVenta;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -44,7 +46,7 @@ public class ServiciosOperaciones {
     public void listadeServicios() {
         con.conectarBaseDeDatos();
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT ser.idServicio, ser.nombre, ser.precio FROM servicios ser ");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT ser.idServicio, ser.nombre, ser.precio FROM servicios ser WHERE ser.estado=1");
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
@@ -65,14 +67,29 @@ public class ServiciosOperaciones {
     public void nuevoServicio(String nombre, float precio) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into servicios(nombre,precio) values(?,?)");
+            PreparedStatement pstm = con.getConnection().prepareStatement("INSERT into servicios(nombre,precio,estado) values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
             pstm.setString(1, nombre);
             pstm.setFloat(2, precio);
+            pstm.setInt(3,1);
             pstm.execute();
-            pstm.close();
+            ResultSet rs = pstm.getGeneratedKeys();
+            if(rs.next())
+            {
+                int idIns = rs.getInt(1);
+                 Object [] fila = {idIns, nombre, precio};
+                 listadoDeServicios.m.addRow(fila);
+                 pstm.close();
             JOptionPane.showMessageDialog(null, "Registro Completo", "FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+           
             con.desconectarBaseDeDatos();
+            if (!nuevoServicio.txtInsumo.getText().equals("")){
+              nuevoServicioInsumo(nombre, nuevoServicio.txtInsumo.getText());   
+            }
             nuevoServicio.nuevo();
+            }
+            
+            
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se registro el servicio" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -81,7 +98,7 @@ public class ServiciosOperaciones {
     public void eliminarServicio(String nombre) {
         try {
             con.conectarBaseDeDatos();
-            PreparedStatement pstm = con.getConnection().prepareStatement("DELETE FROM servicios WHERE nombre = '" + nombre + "'");
+            PreparedStatement pstm = con.getConnection().prepareStatement("UPDATE servicios set estado = 0 WHERE nombre = '" + nombre + "'");
 //   pstm.setString(1,nombre);
             pstm.execute();
             pstm.close();
@@ -115,7 +132,7 @@ public class ServiciosOperaciones {
     public void cargarServicios() {
         con.conectarBaseDeDatos();
         try {
-            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT idServicio, nombre,precio FROM servicios");
+            PreparedStatement pstm = con.getConnection().prepareStatement("SELECT idServicio, nombre,precio FROM servicios WHERE estado=1");
             ResultSet res = pstm.executeQuery();
             ResultSetMetaData rsmd = res.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
@@ -194,9 +211,7 @@ public class ServiciosOperaciones {
 
 //            pstm.setString(1, nombre);
 //            pstm.setFloat(2, precio);
-            JOptionPane.showMessageDialog(null, "Registro Completo", "FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
             con.desconectarBaseDeDatos();
-            nuevoServicio.nuevo();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se registro el servicio" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }

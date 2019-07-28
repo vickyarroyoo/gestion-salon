@@ -235,9 +235,7 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
      ser.setNombre(txtNombre.getText().toLowerCase());
      ser.setPrecio(Float.parseFloat(txtPrecio.getText()));
      ser.nuevoServicio();
-     if (!txtInsumo.getText().equals("")){
-      ser.nuevoServicioInsumo(txtInsumo.getText());   
-     }
+     
     }
     else{
      JOptionPane.showMessageDialog(null,"Datos Faltantes","Error",JOptionPane.ERROR_MESSAGE);
@@ -279,6 +277,7 @@ public nuevoServicio(java.awt.Frame parent, boolean modal) {
      public static void nuevo() {
      txtNombre.setText("");
      txtPrecio.setText("");
+     txtInsumo.setText("");
     }
 
     public static void main(String args[]) {

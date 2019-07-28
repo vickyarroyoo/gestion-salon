@@ -516,7 +516,7 @@
                   <Font name="Tahoma" size="18" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="18">
+                  <StringArray count="21">
                     <StringItem index="0" value="A&#xf1;o"/>
                     <StringItem index="1" value="2000"/>
                     <StringItem index="2" value="2001"/>
@@ -535,9 +535,15 @@
                     <StringItem index="15" value="2014"/>
                     <StringItem index="16" value="2015"/>
                     <StringItem index="17" value="2016"/>
+                    <StringItem index="18" value="2017"/>
+                    <StringItem index="19" value="2018"/>
+                    <StringItem index="20" value="2019"/>
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a&#xf1;oIngresoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="diaNac">
               <Properties>
@@ -614,7 +620,7 @@
                   <Font name="Tahoma" size="18" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="62">
+                  <StringArray count="81">
                     <StringItem index="0" value="A&#xf1;o"/>
                     <StringItem index="1" value="1940"/>
                     <StringItem index="2" value="1941"/>
@@ -677,6 +683,25 @@
                     <StringItem index="59" value="1998"/>
                     <StringItem index="60" value="1999"/>
                     <StringItem index="61" value="2000"/>
+                    <StringItem index="62" value="2001"/>
+                    <StringItem index="63" value="2002"/>
+                    <StringItem index="64" value="2003"/>
+                    <StringItem index="65" value="2004"/>
+                    <StringItem index="66" value="2005"/>
+                    <StringItem index="67" value="2006"/>
+                    <StringItem index="68" value="2007"/>
+                    <StringItem index="69" value="2008"/>
+                    <StringItem index="70" value="2009"/>
+                    <StringItem index="71" value="2010"/>
+                    <StringItem index="72" value="2011"/>
+                    <StringItem index="73" value="2012"/>
+                    <StringItem index="74" value="2013"/>
+                    <StringItem index="75" value="2014"/>
+                    <StringItem index="76" value="2015"/>
+                    <StringItem index="77" value="2016"/>
+                    <StringItem index="78" value="2017"/>
+                    <StringItem index="79" value="2018"/>
+                    <StringItem index="80" value="2019"/>
                   </StringArray>
                 </Property>
               </Properties>

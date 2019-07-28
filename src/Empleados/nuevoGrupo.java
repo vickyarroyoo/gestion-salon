@@ -289,7 +289,7 @@ public class nuevoGrupo extends javax.swing.JDialog {
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-  if(!txtDniGrupo.getText().equals("")&&!txtNombreGrupo.getText().equals("") && !txtApellidoGrupo.getText().equals("") 
+      if(!txtDniGrupo.getText().equals("")&&!txtNombreGrupo.getText().equals("") && !txtApellidoGrupo.getText().equals("") 
      && !txtDniEmpleado.getText().equals("") && comboDia.getSelectedIndex()!=0  && comboMes.getSelectedIndex()!=0  &&
      comboAño.getSelectedIndex()!=0 && comboParentesco.getSelectedIndex()!=0 && comboDiscapacidad.getSelectedIndex()!=0
      && !buscaDniF(txtDniGrupo.getText())){
@@ -300,11 +300,11 @@ public class nuevoGrupo extends javax.swing.JDialog {
 
     if(emp.fh.confirmarFecha(fecha)== true){
     String fec = comboAño.getSelectedItem().toString() + "/" + mes + "/" + comboDia.getSelectedItem().toString();
+    emp.gf.setDniEmpleado(Integer.parseInt(txtDniEmpleado.getText()));
     emp.gf.setDni(Integer.parseInt(txtDniGrupo.getText()));
     emp.gf.setNombre(txtNombreGrupo.getText().toLowerCase());
     emp.gf.setApellido(txtApellidoGrupo.getText().toLowerCase());
     emp.gf.setParentesco(comboParentesco.getSelectedItem().toString().toLowerCase());
-    emp.gf.setDniEmpleado(Integer.parseInt(txtDniEmpleado.getText()));
     emp.gf.setFechaNac(fec);
     if(disc==1){
     emp.gf.setDiscapacidad(false);

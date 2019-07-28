@@ -3,6 +3,7 @@ package Proveedores;
 import Clases.Proveedor;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import Proveedores.listadoDeProveedores;
 
 public class nuevoProveedor extends javax.swing.JDialog {
  Proveedor pro = new Proveedor();
@@ -332,6 +333,7 @@ public class nuevoProveedor extends javax.swing.JDialog {
   pro.setFechaAlta(lblFechaBd.getText());
   pro.setEstado(1);
   pro.nuevoProveedor();
+  
  }
  else{
   JOptionPane.showMessageDialog(null,"Datos Faltantes","Error",JOptionPane.ERROR_MESSAGE);
@@ -353,6 +355,7 @@ public class nuevoProveedor extends javax.swing.JDialog {
    txtRazonSocial.requestFocus();
    txtTelefono.setText("");
    txtEmail.setText("");
+   txtCalle.setText("");
   // txtCalle.setText("");
   // comboProvincia.setSelectedIndex(0);
  }

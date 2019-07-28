@@ -58,7 +58,7 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("REPORTE DE VENTAS");
 
@@ -83,7 +83,7 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
 
         btnMostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reportee.png"))); // NOI18N
         btnMostrar.setText("MOSTRAR");
-        btnMostrar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnMostrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarActionPerformed(evt);
@@ -92,7 +92,7 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cambiar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
-        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -101,7 +101,7 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
         btnSalir.setText("SALIR");
-        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -134,7 +134,7 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
         );
 
         radioTodos.setBackground(new java.awt.Color(0, 204, 204));
-        radioTodos.setFont(new java.awt.Font("Courier New", 1, 14));
+        radioTodos.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         radioTodos.setForeground(new java.awt.Color(-1,true));
         radioTodos.setSelected(true);
         radioTodos.setText("MOSTRAR TODAS");
@@ -145,7 +145,7 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
         });
 
         radioCliente.setBackground(new java.awt.Color(0, 204, 204));
-        radioCliente.setFont(new java.awt.Font("Courier New", 1, 14));
+        radioCliente.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         radioCliente.setForeground(new java.awt.Color(-1,true));
         radioCliente.setText("POR CLIENTE");
         radioCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,37 +154,37 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
             }
         });
 
-        lblDni.setFont(new java.awt.Font("Courier New", 1, 18));
+        lblDni.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         lblDni.setForeground(new java.awt.Color(-1,true));
         lblDni.setText("Nº DE DNI:");
 
         txtDni.setEditable(false);
-        txtDni.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtDni.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDniKeyTyped(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18));
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(-1,true));
         jLabel2.setText("DEL DIA:");
 
-        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18));
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(-1,true));
         jLabel3.setText("AL DIA:");
 
         txtFechaAl1.setEditable(false);
-        txtFechaAl1.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtFechaAl1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtFechaAl1.setForeground(new java.awt.Color(255, 0, 0));
 
-        txtFechaDel.setFont(new java.awt.Font("Tahoma", 1, 12));
+        txtFechaDel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtFechaDel.setEnabled(false);
 
-        txtFechaAl.setFont(new java.awt.Font("Tahoma", 1, 12));
+        txtFechaAl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtFechaAl.setEnabled(false);
 
-        tablaReportes.setFont(new java.awt.Font("Tahoma", 1, 14));
+        tablaReportes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tablaReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -204,8 +204,13 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
         jScrollPane1.setViewportView(tablaReportes);
 
         txtFechaDel2.setEditable(false);
-        txtFechaDel2.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtFechaDel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtFechaDel2.setForeground(new java.awt.Color(204, 0, 0));
+        txtFechaDel2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaDel2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -280,8 +285,8 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-899)/2, (screenSize.height-586)/2, 899, 586);
+        setSize(new java.awt.Dimension(899, 586));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void radioTodosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioTodosMouseClicked
@@ -390,6 +395,10 @@ public reporteVentas(java.awt.Frame parent, boolean modal) {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
      dispose();
 }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtFechaDel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDel2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaDel2ActionPerformed
 
     private void muestra(){
     if(!txtFechaDel.getText().equals("")&& !txtFechaAl.getText().equals("")){

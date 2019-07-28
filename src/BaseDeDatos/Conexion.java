@@ -5,7 +5,7 @@ package BaseDeDatos;
 import java.sql.*;
 
 public class Conexion {
- static String bd = "salonbelleza";
+ static String bd = "elsalon2";
  static String login = "root";
  static String password = "";
  static String url = "jdbc:mysql://localhost:3306/" + bd;
